@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gogo">
+	<insert id="insert" parameterType="dto.CommonDataType">
+		insert into gozip values(#{hakbun}, #{identify}, #{score1}, #{score2});
+		<!--
+			 값을 가져와야 values뒤에 쓸 수 있기에 받아올때 파라미터타입으로 들고온다. 패키지분리되어있으면 패키지명.오브젝트로 들고온다.
+			 #{}를 쓰면 values 뒤에 char 타입은 ''를 쓰지 않아도 되고, int타입은 자동으로 읽힌다.
+			 #{}를 쓰지 않으면 char타입은 ''를 써야하고, int 타입은 저장되지 않고 NULL값으로 뜬다.
+			 table 필드가 4개인데 4개를 다 쓸거면, 테이블 필드 괄호 안써도됨.
+			 >> 원래 studentinfo(hakbun, id, score1, score2)인데 studentinfo values() 이렇게 가도 됨.
+			 >> 테이블 뒤에 필드 안쓰면 기존 순서대로 순차적으로 값이 들어간다.
+			 >> 필드명과 변수명이 같으면 알아서 자리를 찾아서 데이터가 들어감.
+		 -->
+	</insert>  
+	<select id="full" resultType="dto.CommonDataType">
+		select*from gozip;
+		<!--
+			resultType은 리턴값임. 
+		 -->
+	</select>
+	<select id="individual" parameterType="dto.CommonDataType" resultType="dto.CommonDataType">
+		select from gozip where hakbun = #{hakbun};
+	</select>
+	<delete id="de">
+		delete from gozip;
+	</delete>
+	<delete id="delete" parameterType="dto.CommonDataType">
+		delete from gozip where hakbun = #{hakbun};
+	</delete>
+</mapper>
